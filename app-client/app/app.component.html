@@ -1,0 +1,50 @@
+<nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse" *ngIf="currentUser">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavBar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" routerLink="/">Hypertube</a>
+
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="shows">TV Shows</a>
+            </li>
+        </ul>
+        <div class="navbar-nav my-2 my-lg-0">
+            <div ngbDropdown>
+                <a class="nav-link dropdown-toggle" id="dropdown2" ngbDropdownToggle>
+                    {{currentUser.lang}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdown2">
+                    <a class="dropdown-item" (click)="updateLang('fre')">Français</a>
+                    <a class="dropdown-item" (click)="updateLang('eng')">English</a>
+                </div>
+            </div>
+            <div ngbDropdown>
+                <a class="nav-link dropdown-toggle" id="dropdown1" ngbDropdownToggle>
+                    <img src="{{currentUser.pic.indexOf('http') !== -1 ? currentUser.pic : 'http://localhost:3000/userpics/' + currentUser.pic}}" alt="">
+                    {{currentUser.username}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdown1">
+                    <a class="dropdown-item" routerLink="/profile">My Profile</a>
+                    <a class="dropdown-item" routerLink="/auth">Log out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" [class.pushTop]="currentUser">
+    <app-flash></app-flash>
+    <router-outlet></router-outlet>
+</div>
+
+
+<!--<a href="https://www.facebook.com/v2.9/dialog/oauth?client_id=1006427196157157&redirect_uri=http://localhost:3001/auth/facebook&scope=email">Facebook</a>-->
+

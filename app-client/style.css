@@ -1,0 +1,52 @@
+@import "../node_modules/nouislider/distribute/nouislider.min.css";
+@import 'nouislider.min.css';
+@import "../node_modules/videogular2/fonts/videogular.css";
+
+/* noUi */
+.noUi-horizontal { height: 3px; }
+.noUi-connect { background: #333 !important; }
+.noUi-handle { border-radius: 3px; top: -8px !important; background: #333 !important; border-color: #333 !important; }
+.noUi-handle:before { display: block; width: 2px; height: 10px; left: 2px; top: 0; }
+.noUi-handle:after { display: block; width: 2px; height: 10px; left: 7px; top: 0; }
+.noUi-tooltip { display: none; }
+.noUi-handle:hover .noUi-tooltip { display: inline-block }
+
+
+html, body, .container-fluid { height: 100%; }
+
+body {
+    background-color: #333;
+    color: #FFF;
+}
+
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.strike > span {
+    position: relative;
+    display: inline-block;
+}
+
+.strike > span:before,
+.strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: #FFF;
+}
+
+.strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+}

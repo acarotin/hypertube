@@ -1,0 +1,95 @@
+<script src="movie.component.ts"></script>
+<div *ngIf="movie && !openVideo" class="row h-100 movie-container" [style.background-image]="'url(' + movie.background_image + ')'">
+    <div class="col-12">
+        <div class="row bg">
+            <div class="col-12 col-sm-3 movie-image-container">
+                <img [src]="movie.large_cover_image" alt="" class="img-fluid movie-image">
+            </div>
+            <div class="col-12 col-sm-9 movie-info-container">
+                <h1 class="display-3 ">{{movie.title}}</h1>
+                <div class="movie-info">
+                    <div class="info">
+                        {{info.Released}}
+                    </div>
+                    <span class="bull-sep">&bull;</span>
+                    <div class="info">
+                        {{info.Runtime}}
+                    </div>
+                    <span class="bull-sep">&bull;</span>
+                    <div class="info">
+                        {{info.Genre}}
+                    </div>
+                    <span class="bull-sep">&bull;</span>
+                    <div class="info">
+                        <a [href]="'http://www.imdb.com/title/' + movie.imdb_code">
+                            <img src="assets/img/imdb.png" alt="IMDB" class="imdb">
+                        </a>
+                    </div>
+                    <span class="bull-sep">&bull;</span>
+                    <div class="info">
+                        {{info.imdbRating * 10}}%
+                    </div>
+                    <span class="bull-sep" *ngIf="info.Rated">&bull;</span>
+                    <div class="info" *ngIf="info.Rated" >
+                        <div class="movie-mpa">
+                            {{info.Rated}}
+                        </div>
+                    </div>
+                    <span class="bull-sep">&bull;</span>
+                    <div class="info">
+                        {{info.Country}}
+                    </div>
+                    <span class="bull-sep">&bull;</span>
+                    <div class="info">
+                        {{info.Language}}
+                    </div>
+                    <span class="bull-sep" *ngIf="info.Director !== 'N/A'">&bull;</span>
+                    <div class="info" *ngIf="info.Director !== 'N/A'">
+                        <span>Director</span> {{info.Director}}
+                    </div>
+                    <span class="bull-sep" *ngIf="info.Writer !== 'N/A'">&bull;</span>
+                    <div class="info" *ngIf="info.Writer !== 'N/A'">
+                        <span>Writer</span> {{info.Writer}}
+                    </div>
+                    <span class="bull-sep" *ngIf="info.Actors !== 'N/A'">&bull;</span>
+                    <div class="info" *ngIf="info.Actors !== 'N/A'">
+                        <span>Actors</span> {{info.Actors}}
+                    </div><span class="bull-sep" *ngIf="info.Production !== 'N/A'">&bull;</span>
+                    <div class="info" *ngIf="info.Production !== 'N/A'">
+                        <span>Production</span> {{info.Production}}
+                    </div>
+                </div>
+                <div class="movie-desc">
+                    {{movie.description_full}}
+                </div>
+
+                <ngb-tabset>
+                    <ngb-tab title="Torrents">
+                        <ng-template ngbTabContent>
+                            <div class="movie-watch" *ngIf="torrents">
+                                <div ngbRadioGroup [(ngModel)]="torrent">
+                                    <label class="btn btn-quality" *ngFor="let torrent of torrents" placement="top" ngbTooltip="{{torrent.size}}">
+                                        <input type="radio" name="torrent" [value]="torrent._id"> {{torrent.quality}}
+                                    </label>
+                                </div>
+                                <button class="btn watch" (click)="launchStream()" [disabled]="!torrent">Watch !</button>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Comments">
+                        <ng-template ngbTabContent>
+                            <app-comment [imdb]="movie.imdb_code"></app-comment>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="video" *ngIf="openVideo">
+    <button (click)="closeVideo()"class="btn btn-default btn-back">Back to movie</button>
+    <app-stream [torrentid]="torrent" type="movie" [id]="movie._id"></app-stream>
+</div>
